@@ -1,7 +1,7 @@
 {
     "train_path" : "data/train.csv",
     "test_path" : "data/test.csv",
-    "model_path" : "models/encoded.pickle",
+    "model_path" : "models/",
     "target_column" : "Time_taken(min)",
     "na_values" : [
                     "", 

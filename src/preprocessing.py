@@ -1,3 +1,4 @@
+import os
 import pickle
 
 def convert_float(df):
@@ -84,7 +85,7 @@ def convert_categorical_columns(df,target_column,model_path):
   encoded_dict = {"ordinal_dict": ordinal_dict,
                   "nominal_dict" : nominal_dict     
                   }
-  with open(model_path, 'wb') as handle:
+  with open(os.path.join(model_path, "encoded.pickle"), 'wb') as handle:
         pickle.dump(encoded_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
