@@ -133,9 +133,6 @@ def handle_missing_value(df):
     '''
     This function is to handles missing values in  data.
     '''
-
-    # Convert 'NaN' to np.nan
-    df=df.replace('NaN', float(np.nan), regex=True)
     df.dropna(inplace = True)
     return df
 
@@ -167,10 +164,11 @@ if  __name__ == "__main__":
     with open ("config.json",'r') as file:
         config = json.load(file)
     train = config["train_path"]
+    na_values = config["na_values"]
 
     # Reading Train data
-    df = load_data(train)
+    df = load_data(train,na_values)
 
     # Data processing
     df = prepare_data(df)
-    print(df[["ID","Weatherconditions",'Time_taken(min)']].head())
+    print(df.head())
