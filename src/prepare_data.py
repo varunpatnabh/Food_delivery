@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import pandas as pd
 from math import sin, cos, sqrt, atan2, radians
 from load_data import load_data
 
@@ -72,6 +73,22 @@ def process_timecolumns(df):
     df['Order_prep_time'] = ((df['Time_Order_picked'] - df['Time_Orderd']).dt.total_seconds())/60
     return df
 
+
+def process_order_preapre_time(df):
+    '''
+    This function is to extract Order prep time.
+    params:
+        df : Dataframe to be processed
+    return: 
+        Processed Dataframe
+    '''
+    # Dropping Next day dilevery
+    # TODO fix for Next day delivery scenario
+    index_ord = df[df['Order_prep_time']<=0].index
+    df.drop(index_ord,inplace = True)
+    return df
+
+
 def drop_columns(df):
     '''
     This function is to remove unwanted columns from data for model building.
@@ -84,6 +101,31 @@ def drop_columns(df):
     df.drop(['Restaurant_latitude', 'Restaurant_longitude',
         'Delivery_location_latitude', 'Delivery_location_longitude'],axis = 1,inplace = True)
     df.drop(['ID','Delivery_person_ID','Order_Date'],axis = 1, inplace = True)
+    df.drop(['Time_Orderd','Time_Order_picked'],axis = 1, inplace = True)
+    return df
+
+
+def type_conversion(df):
+    '''
+    This function is to convert columns into appropiate datatype.
+    params:
+        df : Dataframe to be processed
+    return: 
+        Processed Dataframe
+    '''
+    df = df.astype(
+                    {'Delivery_person_Age': 'int', 
+                    'distance': 'float64',
+                    'Delivery_person_Ratings':'float64',
+                    'Weatherconditions':'object',
+                    'Road_traffic_density':'object',
+                    'Type_of_order':'object',
+                    'Type_of_vehicle':'object',
+                    'Festival':'object',
+                    'City':'object',
+                    'multiple_deliveries':'int',
+                    'Time_taken(min)':'int'}
+                )
     return df
 
 
@@ -113,6 +155,7 @@ def prepare_data(df):
     process_weatherconditions(df)
     process_time_taken(df)
     process_timecolumns(df)
+    process_order_preapre_time(df)
     handle_missing_value(df)
     drop_columns(df)
     return df
