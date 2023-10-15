@@ -155,6 +155,7 @@ def prepare_data(df):
     process_order_preapre_time(df)
     handle_missing_value(df)
     drop_columns(df)
+    type_conversion(df)
     return df
 
 

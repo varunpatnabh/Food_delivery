@@ -2,6 +2,8 @@ train_path =  "data/train.csv"
 
 test_path = "data/test.csv"
 
+model_path = "models/encoded.pickle"
+
 na_values =    [
                     "", 
                     "NaN ", 
