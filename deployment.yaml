@@ -1,0 +1,24 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deliverytime-deploy
+  labels:
+    type: restapi
+spec:
+  selector: 
+    matchLabels:
+      app: deliverytime
+  replicas: 3
+  template:
+    metadata:
+      name: deliverytime-tmpl
+      labels:
+        app: deliverytime
+    spec:
+      containers:
+        - name: deliverytime
+          image: deliverytime:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
