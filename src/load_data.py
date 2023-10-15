@@ -7,7 +7,7 @@ from datetime import datetime
 from math import sin, cos, sqrt, atan2, radians
 
 
-def load_data(input_path):
+def load_data(input_path,na_values):
     '''
     This function is to load data from file source.
     params:
@@ -15,5 +15,5 @@ def load_data(input_path):
 
     return: DataFrame 
     '''
-    df = pd.read_csv(input_path)
+    df = pd.read_csv(input_path,na_values=na_values,keep_default_na=False)
     return df
