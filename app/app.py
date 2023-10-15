@@ -1,11 +1,8 @@
-import os
 import sys
 sys.path.append('src')
-import json
 import joblib
 import pickle
 import pandas as pd
-import urllib.request
 from flask_cors import CORS
 from flask import Flask, json, request, jsonify , render_template
 from werkzeug.utils import secure_filename
@@ -49,36 +46,14 @@ def predict():
 
 @app.route("/prediction")
 def prediction():
-    Airline = request.args.get('Airline')
-    Source = request.args.get('Source')
-    Destination = request.args.get('Destination')
-    Departure_Date = request.args.get('Departure_Date')
-    Arrival_Date = request.args.get('Arrival_Date')
-    Departure_Time = request.args.get('Departure_Time')
-    Arrival_Time = request.args.get('Arrival_Time')
-    Route = request.args.get('Route')
-    Stops = request.args.get('Stops')
-    Additional = request.args.get('Additional')
-
+    # get 
+    value = request.args.get('Value')
     data_dict = {
-            'Airline'  : Airline,
-            'Source'  : Source,
-            'Destination'  : Destination,
-            'Date_of_Journey'  : Departure_Date,
-            'Dep_Time'  : Departure_Time,
-            # 'Arrival_Date'  : Arrival_Date,
-            'Duration'  : '2h 50m',
-            'Arrival_Time'  : Arrival_Time,
-            'Route'  : Route,
-            'Total_Stops' : Stops,
-            'Additional_Info'  : Additional,
+            'value'  : value,
         }
-    print(data_dict)
 
     # Convert json data to dataframe
     df = pd.DataFrame.from_dict([data_dict],orient='columns')
-    # print("-"*80)
-    print(df)
 
     # Pre-process and make prediction using model loaded from disk as per the data.
     data = preprocess_and_predict(df,encoded_dict)

@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from math import sin, cos, sqrt, atan2, radians
 from load_data import load_data
-
+from configuration import *
 
 def calculate_distance(df):
     '''
