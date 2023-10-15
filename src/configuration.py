@@ -4,6 +4,8 @@ test_path = "data/test.csv"
 
 model_path = "models/encoded.pickle"
 
+target_column = "Time_taken(min)"
+
 na_values =    [
                     "", 
                     "NaN ", 

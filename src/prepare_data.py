@@ -157,19 +157,3 @@ def prepare_data(df):
     drop_columns(df)
     type_conversion(df)
     return df
-
-
-if  __name__ == "__main__":
-
-    # reading configuration from config file.
-    with open ("config.json",'r') as file:
-        config = json.load(file)
-    train = config["train_path"]
-    na_values = config["na_values"]
-
-    # Reading Train data
-    df = load_data(train,na_values)
-
-    # Data processing
-    df = prepare_data(df)
-    print(df.head())
